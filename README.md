@@ -45,9 +45,11 @@ An exposition of Levent Alpöge’s announced argument for the Riemann hypothesi
 
 ### Citing this exposition
 
-Allahyar, Sahibzada. *From theta lifts to zeta zeros: A reconstruction of Levent Alpöge’s announced argument.* Expository manuscript, 20 November 2026, 46 pp. [Permanent link to this revision](https://github.com/sahibzada-allahyar/math/blob/acdadc3a3d2a89c1c0fea6f70406bead488af729/preprint/alpoge-riemann/reconstruction.pdf).
+For the announced argument and its Lean formalization, cite [Levent Alpöge’s original announcement](https://alpo.ge/remark.pdf). It describes his collaboration with Claude and links the Lean release in the first footnote.
 
-When referring to the original argument or its Lean formalization, please also cite [Levent Alpöge’s announcement and accompanying Lean release](https://alpo.ge/remark.pdf).
+If you draw on the presentation in this manuscript, you can cite the exposition as follows.
+
+Allahyar, Sahibzada. *From theta lifts to zeta zeros: A reconstruction of Levent Alpöge’s announced argument.* Expository manuscript, 20 November 2026, 46 pp. [Permanent link to this revision](https://github.com/sahibzada-allahyar/math/blob/rh-exposition-2026-11-20/preprint/alpoge-riemann/reconstruction.pdf).
 
 [Download BibTeX](preprint/alpoge-riemann/citation.bib)
 
@@ -59,6 +61,6 @@ When referring to the original argument or its Lean formalization, please also c
   month        = nov,
   howpublished = {Expository manuscript},
   note         = {20 November 2026 revision, 46 pages},
-  url          = {https://github.com/sahibzada-allahyar/math/blob/acdadc3a3d2a89c1c0fea6f70406bead488af729/preprint/alpoge-riemann/reconstruction.pdf}
+  url          = {https://github.com/sahibzada-allahyar/math/blob/rh-exposition-2026-11-20/preprint/alpoge-riemann/reconstruction.pdf}
 }
 ```
