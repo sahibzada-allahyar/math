@@ -39,4 +39,4 @@ Each archive includes source files, pinned dependencies, and build instructions.
 
 An exposition of Levent Alpöge’s announced argument for the Riemann hypothesis. It proves the analytic reduction from a one-sided prime-sum estimate to RH. The construction supplying the simultaneous arithmetic estimates is cited from Alpöge’s Lean release and remains an assumption in this exposition.
 
-[Read the PDF](preprint/alpoge-riemann/reconstruction.pdf) · [LaTeX source](preprint/alpoge-riemann/reconstruction.tex) · [Alpöge’s announcement](https://alpo.ge/remark.pdf)
+[Read the PDF](preprint/alpoge-riemann/reconstruction.pdf) · [Alpöge’s announcement](https://alpo.ge/remark.pdf)
