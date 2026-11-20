@@ -37,7 +37,7 @@ Each archive includes source files, pinned dependencies, and build instructions.
 
 ## From theta lifts to zeta zeros
 
-Sahibzada Allahyar · 20 November 2026 · 46 pages
+Sahibzada Allahyar · 20 November 2026 · Revision 2 · 51 pages
 
 An exposition of Levent Alpöge’s announced argument for the Riemann hypothesis. It proves the analytic reduction from a one-sided prime-sum estimate and traces the arithmetic construction through Selmer groups, theta periods, and determinant jets. Section 11 identifies the arithmetic results used from the Lean release and the scope of independent verification.
 
@@ -49,9 +49,9 @@ For the announced argument and its Lean formalization, cite [Levent Alpöge’s 
 
 If you draw on the presentation in this manuscript, you can cite the exposition as follows.
 
-Allahyar, Sahibzada. *From theta lifts to zeta zeros: A reconstruction of Levent Alpöge’s announced argument.* Expository manuscript, 20 November 2026, 46 pp. [Permanent link to this revision](https://github.com/sahibzada-allahyar/math/blob/rh-exposition-2026-11-20/preprint/alpoge-riemann/reconstruction.pdf).
+Allahyar, Sahibzada. *From theta lifts to zeta zeros: A reconstruction of Levent Alpöge’s announced argument.* Expository manuscript, revision 2, 20 November 2026, 51 pp. [Permanent link to this revision](https://github.com/sahibzada-allahyar/math/blob/rh-exposition-2026-11-20-r2/preprint/alpoge-riemann/reconstruction.pdf).
 
-[Download BibTeX](preprint/alpoge-riemann/citation.bib)
+[BibTeX for this revision](https://raw.githubusercontent.com/sahibzada-allahyar/math/rh-exposition-2026-11-20-r2/preprint/alpoge-riemann/citation.bib) · [Earlier 46-page edition](https://github.com/sahibzada-allahyar/math/blob/rh-exposition-2026-11-20/preprint/alpoge-riemann/reconstruction.pdf)
 
 ```bibtex
 @misc{allahyar2026theta,
@@ -60,7 +60,7 @@ Allahyar, Sahibzada. *From theta lifts to zeta zeros: A reconstruction of Levent
   year         = {2026},
   month        = nov,
   howpublished = {Expository manuscript},
-  note         = {20 November 2026 revision, 46 pages},
-  url          = {https://github.com/sahibzada-allahyar/math/blob/rh-exposition-2026-11-20/preprint/alpoge-riemann/reconstruction.pdf}
+  note         = {Revision 2, 20 November 2026, 51 pages},
+  url          = {https://github.com/sahibzada-allahyar/math/blob/rh-exposition-2026-11-20-r2/preprint/alpoge-riemann/reconstruction.pdf}
 }
 ```
