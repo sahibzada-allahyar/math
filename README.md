@@ -34,3 +34,9 @@ The DOI above identifies the version containing the paper and all three Lean pro
 - [17/7 proof package](lean/lean_proofs_17_7.zip)
 
 Each archive includes source files, pinned dependencies, and build instructions.
+
+## From theta lifts to zeta zeros
+
+An exposition of Levent Alpöge’s announced argument for the Riemann hypothesis. It proves the analytic reduction from a one-sided prime-sum estimate to RH. The construction supplying the simultaneous arithmetic estimates is cited from Alpöge’s Lean release and remains an assumption in this exposition.
+
+[Read the PDF](preprint/alpoge-riemann/reconstruction.pdf) · [LaTeX source](preprint/alpoge-riemann/reconstruction.tex) · [Alpöge’s announcement](https://alpo.ge/remark.pdf)

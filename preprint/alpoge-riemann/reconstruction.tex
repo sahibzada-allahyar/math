@@ -1,0 +1,578 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=28mm,top=25mm,bottom=26mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs}
+\usepackage{microtype,xcolor,fancyhdr,enumitem}
+\definecolor{ink}{HTML}{193F50}
+\usepackage[colorlinks=true,linkcolor=ink,urlcolor=ink,citecolor=ink,bookmarksnumbered=true]{hyperref}
+\hypersetup{pdftitle={From theta lifts to zeta zeros},pdfauthor={Independent exposition of Levent Alpöge's announcement}}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\footnotesize\itshape From theta lifts to zeta zeros}\fancyhead[R]{\footnotesize Mathematical reconstruction}\fancyfoot[C]{\small\thepage}\setlength{\headheight}{14pt}
+\renewcommand{\headrulewidth}{0.25pt}
+\newtheorem{theorem}{Theorem}[section]\newtheorem{lemma}[theorem]{Lemma}\newtheorem{prop}[theorem]{Proposition}\newtheorem{cor}[theorem]{Corollary}
+\theoremstyle{definition}\newtheorem{arithinput}[theorem]{Arithmetic input}
+\newcommand{\R}{\mathbb R}\newcommand{\C}{\mathbb C}\newcommand{\Z}{\mathbb Z}\newcommand{\Q}{\mathbb Q}
+\newcommand{\re}{\operatorname{Re}}\newcommand{\im}{\operatorname{Im}}\newcommand{\Res}{\operatorname*{Res}}\newcommand{\rank}{\operatorname{rk}}
+\newcommand{\abs}[1]{\left|#1\right|}\newcommand{\win}{[Y,Y^{3/2}]}
+\newcommand{\src}[1]{\par\smallskip\noindent{\footnotesize\color{ink}\textit{Lean source.} #1}\par\smallskip}
+\newcommand{\sLevel}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/ExplicitFormulaErrorOfHostConditions.lean\#L105}{cyclic character levels}}
+\newcommand{\sTopwin}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean\#L68}{window exponents}}
+\newcommand{\sEvery}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/CharacterBoxes/EveryCharacter.lean\#L8}{primitive-character specialization}}
+\newcommand{\sChar}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/DedekindLFunctions/CharFamily.lean\#L15}{character ramps}}
+\newcommand{\sPole}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/poleData.lean\#L17}{poles and residues}}
+\newcommand{\sRpow}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ZeroFreeOfRpowWindow.lean\#L11}{power-window criterion}}
+\newcommand{\sLandau}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/landauWindow.lean\#L40}{localized derivatives}}
+\newcommand{\sTails}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/landauTails.lean\#L18}{gamma-kernel tails}}
+\newcommand{\sReflect}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/GammaFactorNonvanishing/RhOfRight.lean\#L5}{reflection for zeta}}
+\newcommand{\sImprim}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/CharacterBoxes/Imprimitive.lean\#L5}{change of conductor}}
+\newcommand{\sStatements}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Statements.lean\#L3}{theorem statements}}
+\newcommand{\sMain}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Main.lean\#L4}{final declarations}}
+\newcommand{\sAsk}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/SizeWindowBrackets/FirstPrimeNeSecondPrime.lean\#L61}{inertia and prime sums}}
+\newcommand{\sBal}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChBalance.lean\#L200}{Fourier balance}}
+\newcommand{\sSplit}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/DedekindLFunctions/SplitInertia.lean\#L42}{thick and thin weights}}
+\newcommand{\sCore}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChCore.lean\#L283}{average over translates}}
+\newcommand{\sSig}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/PrimitiveCosets/SigALe.lean\#L38}{discarded characters}}
+\newcommand{\sSize}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/LipschitzWeightAndMinimum.lean\#L507}{scalar size bound}}
+\newcommand{\sChTop}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChTop.lean\#L37}{pointwise excess}}
+\newcommand{\sGm}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/PrimitiveCosets/CoreGm.lean\#L12}{final exponent}}
+\newcommand{\sShape}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/CharacterBoxes/ShapeWin.lean\#L27}{simultaneous family bounds}}
+\newcommand{\sDes}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/CharacterBoxes/DesWin.lean\#L11}{selection of a common family}}
+\newcommand{\sPage}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/CharacterBoxes/ExistsPageN.lean\#L12}{Selmer and dyadic scales}}
+\newcommand{\sPair}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/CharacterBoxes/PairGood.lean\#L18}{good prime pairs}}
+\newcommand{\sPairEx}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/MeanSquareBounds/pairEx.lean\#L112}{existence of prime pairs}}
+\newcommand{\sSha}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/GaloisCohomology/Statement.lean\#L75}{localization kernel}}
+\newcommand{\sPairs}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/CharacterBoxes/WinPairs.lean\#L5}{rescaling the windows}}
+\newcommand{\sSupply}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/CharacterBoxes/SupplyChi.lean\#L8}{host supply}}
+\newcommand{\sLink}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/SharpRestriction/GlobalTheoremInputs.lean\#L40}{local defects and Bessel periods}}
+\newcommand{\sDivin}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/CharacterBoxes/DivinNOfHypV.lean\#L76}{the Selmer contribution}}
+\newcommand{\sCounts}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/AutomorphicVarieties/HeightAndVanishing/Counts.lean\#L53}{cohomological counts}}
+\newcommand{\sJoint}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/AutomorphicVarieties/HeightAndVanishing/JointWinOfCounts.lean\#L16}{passage from counts to windows}}
+\newcommand{\sAdmiss}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/AutomorphicVarieties/CMFieldExponentialBounds/AdmissibleOfPageN.lean\#L131}{assembly of the two signs}}
+\newcommand{\sWindowLit}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/WindowBoundOfLiteratureLevel.lean\#L25}{inputs to the case counts}}
+\newcommand{\sBehrend}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/BehrendSets/Statement.lean\#L48}{affine relations and orbit intersections}}
+\newcommand{\sTower}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AbelianVarietyTheory/Definitions/LatticeFrames/TowerIsChain.lean\#L32}{stages of the tower}}
+\newcommand{\sMean}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/RankGapBounds/MeanBoundSecondForm.lean\#L107}{divisibility and slopes}}
+\newcommand{\sPoint}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/LevelOfCongruence.lean\#L105}{cancellation of the main terms}}
+\newcommand{\sSChain}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/SizeWindowBrackets/SChain.lean\#L17}{joint size hypotheses}}
+\newcommand{\sCovDef}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AbelianVarietyTheory/Definitions/Divisors/CovolXOfCovol.lean\#L53}{cover ranks and lattices}}
+\newcommand{\sCovAr}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopCovolSlim2Use.lean\#L16}{geometric inputs}}
+\newcommand{\sCovG}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopCovolG.lean\#L39}{covolume from cover estimates}}
+\newcommand{\sCovEnd}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/CovolXOfSteps.lean\#L16}{loss at exceptional ranks}}
+\newcommand{\sRow}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/TypeConditions/WeightsConjBis.lean\#L69}{local--global compatibility}}
+\newcommand{\sRowSrc}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/RowSrc.lean\#L6}{Galois representations from lifts}}
+\newcommand{\sVwin}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/VwinOfRow.lean\#L4}{the cohomological window}}
+\newcommand{\sThetaJoin}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SiegelEisensteinSecondTermHypotheses.lean\#L44}{matching and evaluation}}
+\newcommand{\sFinal}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean\#L7}{assembly of nonvanishing}}
+\newcommand{\sCompare}{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AutomorphicArithmetic/PrimitiveCosets/LevelGmLeOnFamilyScales.lean\#L28}{comparison on family windows}}
+\setcounter{tocdepth}{2}\setlength{\emergencystretch}{1.5em}\raggedbottom
+\begin{document}\thispagestyle{plain}
+\begin{center}
+{\small\scshape Analytic number theory}\par\vspace{8pt}
+{\LARGE\bfseries From theta lifts to zeta zeros}\par\vspace{6pt}
+{\large A reconstruction of Levent Alpöge's announced argument}\par\vspace{9pt}
+{\small 20 November 2026}
+\end{center}
+\begin{abstract}
+Alpöge's argument approaches the Riemann hypothesis through a one-sided estimate for a smoothed von Mangoldt sum. The estimate is needed only on arbitrarily distant intervals $[Y,Y^{3/2}]$. We prove that this suffices, by localizing high derivatives of a Mellin transform on one such interval and comparing them with the contribution of a single pole. On the arithmetic side we derive the finite Fourier identity, the square-root exponent from the length of a chain of lifts, and the passage from a bound on each translate to the required prime-sum estimate. We identify the remaining arithmetic construction in the released Lean source, including its Selmer-length and covolume bounds. Those inputs are cited, and their full proofs have not been reconstructed here. The resulting proof of RH in this article is conditional on that construction.
+\end{abstract}
+\tableofcontents
+\vspace{1.25em}
+\noindent\textbf{How to read the argument.}
+For the implication to RH, begin with the precise inequality in~\eqref{eq:window} and follow Sections~\ref{sec:mellin}--\ref{sec:reflection}. To see why that inequality is predicted, read the arithmetic argument in the opposite direction. Section~\ref{sec:arith} seeks a single family on which the divisibility and size estimates hold together. Proposition~\ref{pr:size} turns these estimates into the exponent $1/2+O(\epsilon)$, and the Fourier calculation in Section~\ref{sec:fourier} identifies the quantity being bounded with the required prime sum. The simultaneous choice of the family is where the principal dependence on the released formalization enters.
+\clearpage
+\section{The inequality that detects a zero}\label{sec:target}
+Write $\Lambda(p^j)=\log p$ for primes $p$ and $j\ge1$, and $\Lambda(n)=0$ otherwise. For $x\ge1$ put
+\begin{align}
+ S(x)&=\sum_{n\le x}\Lambda(n)(x/n-1),\notag\\
+ G(x)&=S(x)-x\log x+(1+\gamma)x,\label{eq:G}
+\end{align}
+where $\gamma$ is Euler's constant. A positive excursion of $G$ is what the construction must suppress. At the trivial character, the following is the whole arithmetic output needed in the rest of the argument.
+\begin{arithinput}[Arithmetic window estimate]\label{in:window}
+There are $A\ge0$ and $\epsilon_0>0$ such that, for every $0<\epsilon<\epsilon_0$ and every $Y_0\ge 2$, some $Y\ge Y_0$ satisfies
+\begin{equation}
+ G(x)\le x^{1/2+A\epsilon}\qquad(Y\le x\le Y^{3/2}). \label{eq:window}
+\end{equation}
+\end{arithinput}
+The lower endpoint may depend on both $Y_0$ and $\epsilon$. The estimate holds at every real $x$ in the selected interval. It imposes no restriction on the distance to the next interval. The fixed $A$ is essential when a zero has real part very close to $1/2$.
+\begin{theorem}\label{th:main}
+Arithmetic input~\ref{in:window} implies that every zero of $\zeta$ other than a negative even integer has real part $1/2$.
+\end{theorem}
+Sections~\ref{sec:mellin}--\ref{sec:reflection} give a proof. Sections~\ref{sec:fourier}--\ref{sec:arith} explain where the inequality comes from in the release. The proof there is organized simultaneously for primitive Dirichlet characters. Given a primitive $\psi$, it takes the subgroup generated by $\psi$ at its level, replaces its elements by their inducing primitive characters, and calls the resulting finite set $\mathcal K$. The coefficient of the trivial character is $1$; the other coefficients in this cyclic construction are $1/(3o+1)$, where $o$ is the order of the subgroup. When $\psi$ is trivial, $\mathcal K$ consists of the trivial character alone. Thus \eqref{eq:window} is a specialization of the estimate actually used.
+\src{\sLevel; \sTopwin; \sEvery.}
+
+\section{What the Mellin transform sees}\label{sec:mellin}
+Let $\Phi(s)=\int_1^\infty G(x)x^{-s-1}\,dx$ initially for $\re s>1$. Indeed $|G(x)|\ll x(1+\log^2 x)$, using $\Lambda(n)\le\log n$. For $\re s>1$ direct integration gives
+\[
+ \int_n^\infty (x/n-1)x^{-s-1}\,dx
+ =n^{-s}\left(\frac1{s-1}-\frac1s\right)=\frac{n^{-s}}{s(s-1)}.
+\]
+The sum of the integrals of absolute values converges by the same calculation with $s$ replaced by $\re s$. The logarithmic derivative of the Euler product now yields
+\begin{equation}
+ \Phi(s)=\frac{-\zeta'(s)/\zeta(s)}{s(s-1)}
+       -\frac1{(s-1)^2}+\frac{1+\gamma}{s-1}. \label{eq:transform}
+\end{equation}
+Near $s=1$, $-\zeta'/\zeta=1/(s-1)-\gamma+O(s-1)$ and $1/s=1-(s-1)+O((s-1)^2)$. Both principal parts cancel. A zero $\rho$ of multiplicity $h$ in $0<\re\rho<1$ gives a simple pole with
+\begin{equation}
+ \Res_{s=\rho}\Phi=\frac{h}{\rho(1-\rho)}.\label{eq:residue}
+\end{equation}
+Thus the denominator smooths the prime sum while preserving a detectable singularity at every zero. The whole proof below takes place in $\re s>0$.
+
+For a nonprincipal primitive character $\chi$ put
+\begin{equation}
+ G_\chi(x)=\sum_{n\le x}\Lambda(n)\chi(n)(x/n-1)
+             +x\frac{L'(1,\chi)}{L(1,\chi)}.\label{eq:gchi}
+\end{equation}
+For the primitive principal character put $G_{\boldsymbol1}=G$. The classical nonvanishing of $L(1,\chi)$ makes \eqref{eq:gchi} well defined. For nonprincipal $\chi$ the Mellin transform is
+\[
+ \Phi_\chi(s)=-\frac{L'(s,\chi)/L(s,\chi)}{s(s-1)}
+                  +\frac{L'(1,\chi)/L(1,\chi)}{s-1}.
+\]
+Again $s=1$ is removable. For a finite family with positive real weights $a_\chi$ set $G_{\mathcal K}=\sum_\chi a_\chi\re G_\chi$. Its transform is the weighted sum of $(\Phi_\chi(s)+\overline{\Phi_\chi(\bar s)})/2$. At any zero of one of the functions $L(s,\chi)$ or $L(s,\bar\chi)$ the residue equals
+\[
+ \frac{1}{2\rho(1-\rho)}
+ \sum_\chi a_\chi\big(\operatorname{ord}_{\rho}L(s,\chi)
+                 +\operatorname{ord}_{\rho}L(s,\bar\chi)\big).
+\]
+Here an order is zero at an ordinary nonzero value, and $\rho$ lies in the open strip. The numerator is strictly positive at every zero under consideration. Coincident zeros therefore survive taking the real part and summing. At a real zero the residue is itself positive. This sign matters for families containing real characters.
+\src{\sChar; \sPole.}
+
+\section{A one-sided bound on sparse intervals}\label{sec:landau}
+\begin{theorem}[Window criterion]\label{th:landau}
+Let $0<\theta<1$ and $\lambda>1$. Suppose that for arbitrarily large $Y$,
+\[
+ G_{\mathcal K}(x)\le Cx^\theta\qquad(Y\le x\le Y^\lambda)
+\]
+with a fixed constant $C>0$. Every $L$-function in the family is zero-free in $\re s>\theta$, with the principal pole at $1$ understood.
+\end{theorem}
+\begin{proof}
+Put $u=\log x$, $g(u)=G_{\mathcal K}(e^u)$ and $U=\log Y$. We have $|g(u)|\le C_0e^{2u}$ for $u\ge0$. The Mellin transform becomes the Laplace transform $\Phi(s)=\int_0^\infty g(u)e^{-su}\,du$. For $\sigma>2$, $z=\sigma+it$ and $k\ge0$, differentiation under the integral gives
+\[
+ A_k(z):=\frac{(-1)^k}{k!}\Phi^{(k)}(z)=
+ \int_0^\infty K_k(u)g(u)e^{-itu}\,du,\qquad K_k(u)=\frac{u^k e^{-\sigma u}}{k!}.
+\]
+The bound on $g$ dominates every differentiated integrand locally in $\re z>2$. Since $g$ is real, $A_k(\sigma)$ is real. Positivity of $K_k$ gives the important one-sided comparison
+\begin{equation}
+ |A_k(\sigma+it)|+A_k(\sigma)\le 2\int_0^\infty K_k(u)\max(g(u),0)\,du.\label{eq:onesided}
+\end{equation}
+Indeed $|g|+g=2\max(g,0)$. Thus exceptionally negative values on the interval are harmless.
+
+\smallskip\noindent\textit{Localizing the kernel.}
+Fix $v=(1+\lambda)/2$. Choose $\sigma$ sufficiently large in terms of $\lambda$, let $a=\sigma-2$, and for each admissible $U$ take $k+1$ to be the nearest integer to $avU$. The kernel $a^{k+1}u^ke^{-au}/k!$ is a probability density. For the corresponding random variable $V$, $aV$ has the gamma law of shape $k+1$ and rate $1$. Its moment generating function is $(1-h)^{-(k+1)}$ for $h<1$, by direct integration. If $n=k+1$ and $r>1$, Markov's inequality applied with $h=1-1/r$ gives
+\[
+ \Pr(aV\ge nr)\le \exp[-n(r-1-\log r)].
+\]
+For $0<r<1$, the same argument with $h<0$ bounds $\Pr(aV\le nr)$. The two ratios $aU/n$ and $a\lambda U/n$ tend to $1/v<1$ and $\lambda/v>1$. Hence some $c=c(\lambda)>0$ gives
+\[
+ \int_{[0,\infty)\setminus[U,\lambda U]}K_k(u)e^{2u}\,du
+ \le 2a^{-k-1}e^{-c(k+1)}
+\]
+for all sufficiently large $U$. The constant $c$ may be chosen before $\sigma$, by taking half the smaller of the two limiting rate functions. Take $\sigma$ large enough that $ae^c\ge\sigma$. On the window, bound $g_+$ by $Ce^{\theta u}$ and enlarge its integral to the full half-line. With $E=\sigma-\theta$, \eqref{eq:onesided} now gives a sequence $k\to\infty$ and a constant $B$ such that
+\begin{equation}
+ |A_k(\sigma+it)|+A_k(\sigma)\le B E^{-k}\qquad(t\in\R).\label{eq:key}
+\end{equation}
+Both $k$ and $B$ are independent of the height $t$.
+
+\smallskip\noindent\textit{Isolating a pole.}
+Suppose a pole $\rho_0$ has $\re\rho_0>\theta$. All poles have real part in $(0,1)$, by classical nonvanishing on $\re s\ge1$ and the cancellation at $1$. They are locally finite in $\re s>0$. Let $D$ be the smaller of $E$ and the distance from $\sigma$ to the nearest pole in the closed disk of radius $E$, taking $D=E$ if the disk is empty. The open disk of radius $D$ about $\sigma$ is pole-free.
+
+First suppose that some pole $\rho$ has $\sigma-\re\rho<D$. Center a disk at $z=\sigma+it$ with $t$ initially equal to $\im\rho$. The disk of radius $D$ contains $\rho$. A small perturbation of $t$ makes the nearest pole $\rho_*$ unique and leaves its distance $d<D$. To see this, only finitely many poles occur in the relevant compact neighborhood. A tie between two squared distances gives a linear equation in $t$; if the imaginary parts coincide, equality is impossible since both real parts lie to the left of $\sigma$. Choose $r$ strictly between $d$ and $D$, smaller also than the distance to the second pole. On a neighborhood of the closed disk $|s-z|\le r$, subtracting $b/(s-\rho_*)$, with $b=\Res_{\rho_*}\Phi\ne0$, leaves a holomorphic function. Cauchy's estimate at $z$ and at the real center gives
+\[
+ A_k(z)=\frac{b}{(z-\rho_*)^{k+1}}+O(r^{-k}),
+ \qquad A_k(\sigma)=O(r^{-k}).
+\]
+In \eqref{eq:key} the left side is at least $|b|d^{-k-1}-O(r^{-k})$, which is impossible along $k\to\infty$ since $d<r<E$.
+
+Otherwise all poles have $\sigma-\re\rho\ge D$. Our hypothesized pole has $\sigma-\re\rho_0<E$, so $D<E$ and the minimum is attained. For a pole at distance $D$ we have $D\ge\sigma-\re\rho\ge D$; equality forces $\rho=\beta=\sigma-D$ to be real. This is the unique closest pole. Choose $D<r<E$ separating it from the others. Its residue $b$ is positive by Section~\ref{sec:mellin}. Then $A_k(\sigma)=bD^{-k-1}+O(r^{-k})$. Taking $t=0$ in \eqref{eq:key} gives a contradiction again.
+\end{proof}
+This proof uses the pointwise bound available in the application. The release allows an integrable majorant on the window and obtains an extra factor $e^{\eta U}$; its exponential comparison absorbs that factor. The gamma-density calculation above proves the required pointwise version directly.
+\src{\sRpow; \sLandau; \sTails.}
+
+\section{Reflection and the Riemann hypothesis}\label{sec:reflection}
+\begin{proof}[Proof of Theorem~\ref{th:main}]
+Given a putative zero $\rho$ with $\re\rho>1/2$, choose $1/2<\theta<\min(\re\rho,1)$ and take $0<\epsilon<\epsilon_0$ with $A\epsilon<\theta-1/2$. Input~\ref{in:window} implies the hypothesis of Theorem~\ref{th:landau} for $\lambda=3/2$, $C=1$, and the singleton family. This excludes $\rho$. For a zero with $\re\rho<1/2$, use
+\[
+ \zeta(s)=2^s\pi^{s-1}\sin(\pi s/2)\Gamma(1-s)\zeta(1-s).
+\]
+Here $\re(1-\rho)>1/2$, and $\Gamma(1-\rho)$ is finite and nonzero. Also $\rho\ne0$ because $\zeta(0)=-1/2$. Thus $1-\rho\ne1$ and the right-hand zeta factor is nonzero. The sine can vanish only at an even integer, which in this half-plane and with $\rho\ne0$ must be a negative even integer. This proves the assertion.
+\end{proof}
+For the Dirichlet version, use the family attached to each primitive character in turn. A primitive $\chi$ of conductor $q$ and parity $a\in\{0,1\}$ has completed function $(q/\pi)^{(s+a)/2}\Gamma((s+a)/2)L(s,\chi)$. Its functional equation reflects a zero in the open strip to one of the completion for $\bar\chi$ at $1-s$; neither gamma factor has a pole or zero there. If $\chi$ is induced by $\chi^*$, then
+\[
+ L(s,\chi)=L(s,\chi^*)\prod_{p\mid q,\ p\nmid\operatorname{cond}(\chi^*)}
+          (1-\chi^*(p)p^{-s}).
+\]
+For $\re s>0$ the modulus of $\chi^*(p)p^{-s}$ is less than $1$. This gives all characters. The Lean declaration of RH uses Mathlib's zeta and explicitly excludes $s=1$ and $s=-2(n+1)$, $n\in\mathbb N$. Its Dirichlet assertion concerns zeros in the open strip and nonvanishing to the right with the principal pole excluded.
+\src{\sReflect; \sImprim; \sStatements; \sMain.}
+
+\section{How a prime sum enters a lattice estimate}\label{sec:fourier}
+We work at one scale $x$. The elementary calculation here identifies the quantity on the arithmetic side of the argument. Let $H$ be a finite abelian group of order $n$ and write
+\[
+ \Gamma=(\Z/2)^2\times H,\qquad P=\{(0,i,h)\}\subset\Gamma,
+ \qquad f=|P|=2n.
+\]
+The two cosets of $P$ distinguish two kinds of places. For $t\in H$ define $p_t(g)=g+(1,1,t)$, a bijection from $\Gamma\setminus P$ to $P$. For each prime $p$ the data include an inertia subgroup $I_p\subset\Gamma$ and a Frobenius coset $F_p+I_p$. For a character $\xi\in\widehat\Gamma$ set
+\[
+ v_\xi(p^j)=|I_p|^{-1}\sum_{h\in I_p}\xi(jF_p+h).
+\]
+It equals $\xi(jF_p)$ if $\xi$ is trivial on inertia, and otherwise vanishes. Only prime powers are needed. For each $\xi\ne1$ let $\ell_\xi$ denote its assigned logarithmic derivative at $1$. Set $G_1=G$ and form $G_\xi(y)$ as in \eqref{eq:gchi}, using $v_\xi(p^j)$ in place of $\chi(p^j)$ and $\ell_\xi$ in place of $L'/L(1,\chi)$.
+
+\begin{prop}[Finite Fourier balance]\label{pr:fourier}
+Let $a>0$ and $w_r>0$ for $r\in P$. Define the real prime sum
+\[
+ \mathcal A=\sum_{g\notin P}\sum_{p,j\ge1}^{*}
+  \frac{2\log p}{|I_p|}\,\mathbf1_{g-jF_p\in I_p}
+       (a/p^j-w_{p_t(g)})_+ .
+\]
+The star means that $p$ is prime and $j$ is positive. The sum is finite. With $c(g)=(-1)^{g_1}$ the sign character, put
+\[
+ \mathcal M=a\left(\log a-1-\gamma+\ell_c
+                    -\frac1f\sum_{r\in P}\log w_r\right).
+\]
+Then
+\begin{equation}
+ \mathcal A-\mathcal M=
+ \frac1f\sum_{g\notin P}\sum_{\xi\in\widehat\Gamma}
+      \overline{\xi(g)}\,w_{p_t(g)}G_\xi(a/w_{p_t(g)}).
+ \label{eq:balance}
+\end{equation}
+Here $g_1$ denotes the first of the two binary coordinates.
+\end{prop}
+\begin{proof}
+Character orthogonality on $\Gamma$ gives
+\[
+ \frac1f\sum_\xi\overline{\xi(g)}v_\xi(p^j)
+   =\frac1{f|I_p|}\sum_{h\in I_p}|\Gamma|\mathbf1_{g=jF_p+h}
+   =\frac{2}{|I_p|}\mathbf1_{g-jF_p\in I_p}.
+\]
+Multiplying by $(a/p^j-w)_+\log p$ and summing produces $\mathcal A$. On the character side use $(a/p^j-w)_+=w((a/w)/p^j-1)_+$. For the trivial character the weighted ramp equals $wG(a/w)+a(\log a-\log w-1-\gamma)$. For $\xi\ne1$ it equals $wG_\xi(a/w)-a\ell_\xi$ after summing the prime powers. Finally
+\[
+ f^{-1}\sum_{g\notin P}\overline{\xi(g)}
+ =\begin{cases}1&\xi=1,\\-1&\xi=c,\\0&\text{otherwise}.\end{cases}
+\]
+The sum of the subtracted linear terms is therefore $+a\ell_c$. The bijection $p_t$ accounts for the average of the $\log w_r$.
+\end{proof}
+At unramified primes the indicator has coefficient $2$. At the distinguished ramified prime $d$ one has $|I_d|=2$, giving coefficient $1$. For the designated split primes, both inertia and Frobenius lie in $P$ and the terms with $g\notin P$ vanish. This explains the separate ramified-prime term in the release's definition of $\mathcal A$.
+\src{\sAsk; \sBal.}
+
+\subsection*{Averaging over translates}
+Choose $H_0\le H$, $T\subset H$ and $T_2\subset H_0$. Write $N_T=|T|$, $N_2=|T_2|$, $\delta=N_2/n$. For each $u\in H_0$ and $1\le j\le m$ there is a weight vector $w_{u,j}$ on $P$. For $t\in T$ the parameter is $a_t$, where $|a_t/b-x|\le1$ and $b>0$. Define the excess
+\[
+ D(u)=\sum_{t\in T}\sum_{j=1}^m
+       \left(\mathcal A(a_t,t,w_{u,j})-\re\mathcal M(a_t,w_{u,j})\right).
+\]
+The lattice argument supplies an upper bound $D(u)\le E_x$ uniform in $u$. To extract the desired prime sum from it, the construction arranges that the weights are close to $b$ on the places $(0,1,s+u)$, $s\in T_2$. The other places have much smaller weights and are controlled separately.
+
+For clarity, consider the expression obtained by retaining these places and replacing their weights by $b$. Put $y_t=a_t/b$, $e(h)=(1,0,h)$, and
+\[
+ F(u,t)=\frac b f\sum_{s\in T_2}\sum_\xi
+     \overline{\xi(e(s+u-t))}\,G_\xi(y_t).
+\]
+Indeed $p_t^{-1}(0,1,s+u)=e(s+u-t)$. Averaging $F$ over $H_0$ discards every character nontrivial on $H_0$. Since $s\in H_0$, every surviving summand is independent of $s$. Thus
+\begin{equation}
+ \frac1{|H_0|}\sum_{u\in H_0}F(u,t)
+  =\frac{b\delta}{2}\sum_{\xi\in H_0^\perp}\xi(e(t))G_\xi(y_t).
+ \label{eq:av}
+\end{equation}
+The factor $1/2$ is $n/f$. Formula \eqref{eq:av} uses the embedding $H_0\hookrightarrow\Gamma$ as $(0,0,H_0)$.
+
+Here are the error estimates used in this averaging, stated so the sign and the scale of the resulting inequality can be checked. On thick places $b\le w\le b+\eta+1$. Varying $w$ in $wG_\xi(a_t/w)$ from $b$ to $w$ costs at most $3(x+1)(\eta+1)$ under the weight Lipschitz estimate of the release. On thin places $w\le2b'$, $b'X'\le xb$ and $|G_\xi(y)|\le y\vartheta$ for $y\ge X'/3$. Since $x\ge3$,
+\[
+ a_t/w\ge (x-1)b/(2b')\ge X'/3,
+ \qquad w|G_\xi(a_t/w)|\le(x+1)b\vartheta.
+\]
+There are $f$ coset elements and $2f$ characters, with normalization $1/f$. The size conditions
+\[
+ 6f(x+1)(\eta+1)\le b/x,\qquad 2f(x+1)\vartheta\le 1/x
+\]
+therefore bound the change in each real Fourier expression by $2b/x$. Summing over $j,t$, using \eqref{eq:balance} and averaging in $u$, yields
+\begin{equation}
+ \frac{mb\delta}{2}\sum_{t\in T}\re\sum_{\xi\in H_0^\perp}\xi(e(t))G_\xi(y_t)
+ \le E_x+2N_Tmb/x.\label{eq:avup}
+\end{equation}
+
+Within $H_0^\perp$ a subset $K$ gives the retained primitive characters. The remaining characters cost at most $\Sigma(x)=\sum_{\xi\in H_0^\perp\setminus K}|G_\xi(x)|$. On $K$, $\xi(1,0,0)=1$, so the averaging phase is $\xi(0,0,t)$. Its mean over $T$ is $1$ if the character is trivial on $H$; for other retained characters it differs from the prescribed weight $c_0=1/(3o+1)$ by $O(x^{-1+\epsilon})$. Let $G_{\mathcal K}(x)$ denote the resulting real weighted sum. The character data identify it with the sum of Section~\ref{sec:mellin}. Moving $y_t$ to $x$ costs $O(\log(x+1)+|\ell_\xi|+1)$ per nontrivial character. This follows from differentiating the linear ramps between successive integers and the bound for the corresponding partial sums of $\Lambda(n)/n$; the trivial character has a uniform Lipschitz bound from $\sum_{n\le x}\Lambda(n)/n=\log x+O(1)$. The nontrivial bound $|G_\xi(x)|\ll x(1+\log x+|\ell_\xi|)$ controls the phase error. In the source $|H_0^\perp|=4o$, $|\ell_\xi|=O(1)$ on nontrivial retained characters and $O(\log x)$ on the remainder. For fixed level these errors, summed and divided by $N_T$, are eventually at most $4x^{1/2+\epsilon}$. The real part of a discarded summand is bounded below by minus its modulus. Consequently, if $Q=N_Tmb$,
+\begin{equation}
+ Q\frac\delta2\left(G_{\mathcal K}(x)-\Sigma(x)-4x^{1/2+\epsilon}\right)
+ \le E_x+2Q/x.\label{eq:net}
+\end{equation}
+The estimate on the auxiliary characters is $\Sigma(x)\le4o\,x^{1/2+\epsilon}$ on these scales. It concerns characters selected with the host field. It is a separate input to \eqref{eq:net}; it does not presuppose a bound for the retained zeta sum.
+\src{\sSplit; \sCore; \sSig.}
+
+\section{Why the chain has square-root length}\label{sec:size}
+The preceding argument identified $Q\delta/2$ as the coefficient of the prime sum. To use it, the lattice error has to be small \emph{relative to that coefficient}. The following calculation isolates all powers of $x$. The constants 26 and 7 are included because they show precisely where the final slack enters.
+\begin{prop}[Numerical estimate]\label{pr:size}
+Suppose $x\ge3$, $\epsilon>0$, $C\ge0$, $n,m,N_T,b,k>0$, $0\le a_E\le 2xb$ and
+\begin{align}
+ N_T&\ge \tfrac12 n x^{-\epsilon/8},& x^{-\epsilon}&\le\delta=N_2/n\le1,\notag\\
+ x^{1/2-\epsilon}&\le m\le x^{1/2+\epsilon/2},&
+ xm&\le k\le n^2 x^{1/2-\epsilon}. \label{eq:sizes}
+\end{align}
+Put
+\begin{equation}
+ B_x=N_Ta_E(1+m^2/k)+
+      m\left(2nmbx^\epsilon+
+          \frac{N_2 k b x^\epsilon}{n^2 x^{-\epsilon}}\right). \label{eq:bracket}
+\end{equation}
+If $E_x\le x^{C\epsilon}B_x$, $26\le x^{3\epsilon/8}$ and \eqref{eq:net} holds, then
+\[
+ G_{\mathcal K}(x)-\Sigma(x)\le x^{1/2+(C+3)\epsilon}.
+\]
+\end{prop}
+\begin{proof}
+Divide the four terms in $B_x$ by $Q=N_Tmb$. The first two become
+\[
+ \frac{a_E}{mb}\le 2x/m\le2x^{1/2+\epsilon},
+ \qquad \frac{a_Em}{bk}\le 2xm/k\le2.
+\]
+For the third term use both the lower bound for $N_T$ and the upper bound for $m$ to obtain
+\[
+ 2(n/N_T)m x^\epsilon\le4x^{1/2+13\epsilon/8}.
+\]
+The fourth is $(N_2/N_T)(k/n^2)x^{2\epsilon}\le2x^{1/2+9\epsilon/8}$. In particular $B_x/Q\le10x^{1/2+13\epsilon/8}$. Multiplying \eqref{eq:net} by $2/(Q\delta)$ gives
+\[
+ G_{\mathcal K}-\Sigma\le4x^{1/2+\epsilon}
+       +2x^\epsilon\big(10x^{1/2+(C+13/8)\epsilon}+2/x\big)
+ \le26x^{1/2+(C+21/8)\epsilon}.
+\]
+The last $3\epsilon/8$ absorbs the factor $26$.
+\end{proof}
+Two terms in this calculation have opposite dependence on $m$. With the small powers of $x$ temporarily suppressed, one costs $x/m$, the other $m$. Equalizing these costs gives $m=\sqrt x$. This is the quantitative meaning, in the final estimate, of using enough iterated lifts to mimic multiplicity.
+
+In the source the exponent of $x^\epsilon$ in the lattice error is bounded by $C=e_D+e_L+3$, where $e_D$ and $e_L$ bound the losses in divisibility and comparison. Proposition~\ref{pr:size} and the bound on $\Sigma$ give, eventually,
+\[
+ G_{\mathcal K}(x)\le x^{1/2+(e_D+e_L+6)\epsilon}+4o\,x^{1/2+\epsilon}
+                  \le x^{1/2+(e_D+e_L+7)\epsilon}.
+\]
+In the last inequality one takes $1+4o\le x^\epsilon$ and uses $e_D+e_L\ge0$. The construction fixes these exponents before choosing $\epsilon$. Its final choice in \textit{shapeWin} uses $e_D=2$, $e_L=0$, so $A=9$ suffices there. A bound that only holds on the eventual part of a union of windows still gives arbitrarily distant full windows: choose their lower endpoints beyond the threshold.
+\src{\sSize; \sChTop; \sGm; \sShape; \sDes.}
+
+\section{The arithmetic construction}\label{sec:arith}
+The argument now has a precise burden. For each small $\epsilon$ it must construct arbitrarily distant windows on which the estimates leading to \eqref{eq:net} and \eqref{eq:bracket} hold \emph{together}. This section reconstructs the assembly and several of its calculations. We cite the deep existence and comparison theorems at the places where their proofs are required.
+
+\subsection{Choosing the field and controlling the twists}
+Fix a primitive character $\psi$ of conductor $M$ and $0<\epsilon<1/52$. At scale $x$ choose $h=h(x)$ by rounding up $(2+8\epsilon)\log_2 x$. Thus
+\begin{equation}
+ x^{2+8\epsilon}\le2^h\le2x^{2+8\epsilon}.\label{eq:page}
+\end{equation}
+The field for this stage is abelian. In a cyclotomic field of modulus divisible by $2^{h+2},M,q,d$, its fixing subgroup consists of the automorphisms $\zeta\mapsto\zeta^a$ for which
+\begin{equation}
+ a\equiv\pm1\pmod {2^{h+2}},\quad\psi(a)=1,\quad
+ \left(\frac aq\right)=\left(\frac ad\right)=1. \label{eq:field}
+\end{equation}
+Equivalently, it is the compositum of the real $2$-power cyclotomic subfield, the field cut out by $\psi$, and the two quadratic fields cut out by the displayed symbols. This follows from the Galois correspondence, since fixing the compositum means belonging to the intersection of the four kernels. The prime $q\equiv3\pmod8$ supplies an imaginary quadratic subfield. Complex conjugation is central in the abelian Galois group and acts nontrivially, so its fixed field is totally real and the compositum is CM.
+
+At an auxiliary scale $Z$, write $w=Z^{\epsilon/5}$. The pair of primes used by the release satisfies
+\begin{align*}
+ q&\equiv3\pmod8,& w/2&<\log q\le w,\\
+ d&\equiv7\pmod{16},&
+ \tfrac12 w(\log Z)^2&<\log d\le w(\log Z)^2.
+\end{align*}
+Further, $q\mid d+1$ and every odd prime $p\le w$ divides $d+1$. The pair is coprime to $M$. For prescribed $J\ge1$ it can be chosen, for every sufficiently large $Z$, so that for each character modulo $M$ and each nonempty product of the two quadratic twists, the corresponding inducing primitive character $\chi$ satisfies
+\[
+ |G_\chi(y)|\le y^{1/2+\epsilon/2},\qquad
+ |L'(1,\chi)/L(1,\chi)|\le4\log y\qquad (Z\le y\le Z^J).
+\]
+There are additional zero-free rectangles for the real twists. The release proves this simultaneous selection in its mean-square estimates. The exclusion of the empty product is important: the target $\psi$ itself is retained for the Fourier argument. Merely finding primes in the prescribed congruence classes would leave the twist estimates unproved.
+\src{\sPage; \sPair; \sPairEx.}
+
+\subsection{What the Selmer bound contributes}
+Let $E$ be the field in \eqref{eq:field}. For a prime $\ell$ let $S_\ell$ be the places over $\ell$, and let $G_{E,S_\ell}$ denote the Galois group with the prescribed unramified conditions away from $S_\ell$. The module of interest is $V_r=\Q_\ell/\Z_\ell(-r)$ with the inverse $r$th power of the cyclotomic action. Write $s_\ell(E,r)$ for the $\Z_\ell$-length of the kernel of localization of $H^1(G_{E,S_\ell},V_r)$ at the chosen places over $\ell$. The source explicitly quantifies over the algebraic closure and compatible choices of local data. Its window assertion at $x$ gives finiteness for every $1\le r<t$, $t=\lfloor x^{401}\rfloor$, and, for every finite set $S$ of primes,
+\begin{equation}
+ \sum_{\ell\in S}\log\ell\sum_{1\le r<t}s_\ell(E,r)
+        \le \sqrt{\exp(x^\epsilon)}.\label{eq:sha}
+\end{equation}
+The parameter 401 is the cutoff in the release. Equation~\eqref{eq:sha} is an aggregate length estimate; a surviving local obstruction is charged by its length times $\log\ell$.
+
+More precisely, for every choice of $h(x)$ satisfying \eqref{eq:page}, the source provides $J\ge1$ and $X_0$. For all $X\ge X_0$ and every prime pair satisfying the stated size and congruence conditions at $Z=X^{1/J}$, there is $W\ge Z$, $W^2\le X$, such that \eqref{eq:sha} holds for \emph{every} $W\le x\le W^2$ with the indicated field at $h(x)$. Take $X$ large and choose a pair good for twists on $[Z,Z^J]$. The resulting interval $[W,W^2]$ is then available for both the cohomological and twist conditions. Fixed rescalings leave room for the final exponent $3/2$. For instance, for any fixed $k_0\ge1$, $[k_0W,(k_0W)^{3/2}]\subset[W,W^2]$ as soon as $W\ge k_0^3$. The release implements this with the dyadic choice at $x/k_0$, absorbing the fixed factor $k_0^{2+8\epsilon}$ and the change of the twist cutoff. This step explains the width of the analytic window.
+\src{\sSha; \sPage; \sPairs; \sSupply.}
+
+There is a direct calculation showing how \eqref{eq:sha} enters the divisibility argument. Write $b=\exp(x^\epsilon)$ on the chosen scale, $L=x^\epsilon$ and $B_0=fmbL$. Let $N_c\ge0$ be the correction for the exceptional places. At stage $j$ the quantity $\eta_j$ is a sum of local defects over places with nonbase character, weighted by local logarithmic weights and ramification indices. The comparison called \textit{LinkN} gives
+\[
+ \eta_j\le d_j\left[
+    C_N\{fmbL^2+(\log x)^2N_c\}+\sum_\ell v_\ell\right].
+\]
+Here $d_j$ is the small-level rank and $v_\ell$ is the local contribution from the relevant Selmer lengths, bounded by the corresponding summand in \eqref{eq:sha}. Nonnegative partial sums are bounded by $\sqrt b$, so the series converges and has sum at most $\sqrt b$. The level comparison gives $d_j=D_0$, the required common rank. Since $f,m,L\ge1$, $b\ge1$ and $(\log x)^2\le L$ eventually,
+\begin{equation}
+ \eta_j\le D_0\,(|C_N|+1)L(B_0+N_c).\label{eq:eta}
+\end{equation}
+Indeed $fmbL^2=LB_0$ and $\sqrt b\le b\le B_0$. This is the quantitative conversion from Galois cohomology to an allowed cost in the lattice comparison.
+\src{\sLink; \sDivin.}
+
+For orientation, the proof of \eqref{eq:sha} in the release passes through separate estimates for the two complex-conjugation parts and the prime $2$. The positive-part argument divides the odd primes into an exceptional set attached to $\psi$ and its complement. On the complement it bounds the total by a fixed power of conductor times twist cutoff. At the exceptional primes a layer estimate with allowance $B$ gives a bound of the shape $(N t)^{C}+CB$ after summing; here $N$ denotes the level of the host. The underlying counts include a weighted sum over primes in Case I and individual polynomial bounds in Cases II, III and V. Poitou--Tate and local Tate duality are used in the remaining comparison. The window is chosen so these conductor and layer costs fit under the right side of \eqref{eq:sha}. The proofs of the case counts use automorphy and deformation theory. Their quantitative uniformity is an input here.
+\src{\sCounts; \sJoint; \sAdmiss; \sWindowLit.}
+
+\subsection{A dense choice of translates with sparse intersections}
+There is a useful finite model for the choice of $T_2$. A set $T_0\subset[0,N)\cap\Z$ in the release is chosen so that
+\[
+ \alpha a+\beta b+\gamma c=0,\quad
+ \alpha+\beta+\gamma=0,\quad 0<|\alpha|,|\beta|,|\gamma|\le K
+ \quad\Longrightarrow\quad a=b=c
+\]
+for $a,b,c\in T_0$ (each absolute value is between $1$ and $K$). This version of Behrend's construction has size at least
+$N\exp[-O(\sqrt{\log N\log(K+1)})]$. Here is the geometry behind the estimate. Choose a base $B$ and digit vectors in $\{0,\ldots,D-1\}^s$ with $3KD<B$. Group the vectors by their squared Euclidean norm. One sphere contains at least $D^s/(1+sD^2)$ vectors. Encode each vector as a base-$B$ integer. A relation among the encoded integers holds in each digit: reducing modulo $B$ forces the lowest coefficient to vanish because its magnitude is less than $B$, and division by $B$ continues the induction. Reorder the three coefficients so two have the same sign. The opposite point is a strict convex combination of the other two. Strict convexity of squared norm forces equality on a common sphere. Taking $B^s\le N$, $D$ of order $B/(3K)$ when $B$ is large compared with $K$, the logarithmic loss is $O(s\log(K+1)+(\log N)/s+\log(s+1))$. Balancing the first two terms gives the stated loss, with a singleton covering the regime $\log(K+1)\gg\log N$ after increasing the absolute constant.
+
+To see its use, embed $T_0$ in $\Z/n$ with $8L_0t<n$ for each element, and take $K=2L_0$. Consider three hits of a translated $T_0$ along an orbit $z+ih$ within $2L_0$ consecutive indices $i_1<i_2<i_3$. Subtract the common translate. The three residues satisfy the affine relation with coefficients $i_3-i_2$, $-(i_3-i_1)$, $i_2-i_1$. The sum of absolute values is $2(i_3-i_1)<4L_0$, so the congruence lifts to equality of integers by the size of the representatives. Hence all three residues coincide. If the order of $h$ exceeds $2L_0$, this is impossible. Each such orbit segment therefore has at most two hits. Meanwhile, averaging the hit count of any indexed set of positions over all translates gives exactly its size times $|T_0|/n$, since each fixed position belongs to $|T_0|$ translates. The construction can thus control repeated hits and still retain a calculable mean in \eqref{eq:av}.
+\src{\sBehrend.}
+
+\subsection{Theta periods, divisibility and the size of the error}
+
+Two computations from the announcement explain why theta derivatives and finite Fourier transforms occur together. Over $\mathbb F_q$, for a weight $t$ and $Q(x)=\sum_{j<k}x_jx_{j+1}$, put $M=\sum_x t(x)$ and $N=\sum_{Q(x)=0}\prod_j t(x_j)$. An additive character $e$ of $\mathbb F_q$ which is nontrivial gives
+\[
+ qN=M^k+\sum_{h\ne0}\sum_{x_1,\ldots,x_k}\prod_{j=1}^k t(x_j)\,e(hQ(x)).
+\]
+Summing over $h$ imposes the equation $Q=0$; isolating $h=0$ gives the pure power. The challenge in using this identity is to control the nonzero frequencies and the sign of the geometric contribution. In the number-field argument the prime-sum identity \eqref{eq:balance} plays a related role.
+
+For multiplicity, take a $p$-torsion-free $\mathbb Z_p$-algebra $R$ with a $\mathbb Z_p$-linear derivation $D$ whose reduction has $D^p=0$ on $R/pR$. Then $D^p R\subset pR$, and by iteration $D^{ap+r}R\subset p^aR$ for $a\ge0$ and $0\le r<p$. The reduction of an invariant derivation at an inert prime of a CM curve motivates the stronger odd-level expression in the announcement, whose leading exponent at derivative order $d$ is $d(p^{-1}+p^{-3}+\cdots)=dp/(p^2-1)$. The elementary induction explains the first power of $p$; the local jet estimates are where the additional structure enters. The same constant $p/(p^2-1)$ will appear explicitly in the calculation below.
+
+The length $m$ counts stages in a chain of unitary theta lifts. At a single stage the lift pairs a cusp form with a theta kernel for a unitary dual pair. In the usual integral notation, with compatible Weil data $\omega$, a Schwartz vector $\varphi$ and Haar measure, the kernel has the form
+\[
+ \Theta_\varphi(g,h)=\sum_{v\in V(F)}(\omega(g,h)\varphi)(v).
+\]
+The automorphic integral in $g$ (with the dual pairing on the form) gives a function in $h$. The release fixes the groups, splitting characters, measures, test vectors, level maps and archimedean types at each stage. A final step goes to its distinguished target space. Iterating just the integral symbol would leave its rational structure unspecified. That structure is needed to extract a divisibility estimate for a period.
+
+
+On the finite class sets of definite groups this integral has a particularly transparent algebraic part. If $c$ runs through representatives of the double cosets at the chosen finite level, the kernel acts by
+\[
+ (T_j f)(c')=\sum_c w_j(c)K_j(c,c')f(c),\qquad
+ w_j(c)=|\operatorname{Stab}(c)|^{-1}
+\]
+with the class-sum normalization. The inverse stabilizer is forced by orbit--stabilizer: summing an invariant function over an orbit contributes its value times the order of the acting finite group divided by the stabilizer order. In the vector-valued formula $K_j(c,c')$ acts linearly on the coefficient module. Suppose the kernels carry the chosen integral lattices into the next lattices and $D_jw_j(c)$ are all integral. Then
+\[
+ (D_0\cdots D_{m-1})T_{m-1}\cdots T_0 f
+\]
+is integral whenever $f$ is. Indeed the assertion at stage $j+1$ is a sum of images of integral vectors at stage $j$, multiplied by the integral factors $D_jw_j(c)$. The initial case is the assumption on $f$. In the weighted Hermitian pairing $\sum_c w_j(c)\overline{f(c)}g(c)$ the adjoint of the kernel has conjugate-transposed entries and the new class weights. This follows by interchanging the two finite sums. Thus adjunction moves a lift across a pairing while the integral calculation records the possible denominator at every move. Controlling those denominators uniformly over characters is additional arithmetic content.
+\src{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/ThetaLiftIndependence/Statement.lean\#L40}{integral chains and class sums}.}
+
+One of the required identities has a simple formulation. If $B_u$ denotes the period belonging to a twist $u$, the comparison data include rationality and a common isometry $V$, and for each $u$ a nonzero scalar $a_u$ and isometry $U_u$, such that
+\[
+ B_u(\phi,F)=a_u\,B^{\rm Bes}_u(U_u\phi,VF).
+\]
+This is \textit{BesselId} in the release. The common $V$ makes the comparison meaningful across twists. The nonzero scalars are retained. Their finite valuations and archimedean sizes still matter for the integral lattices. The note describes the seesaw identity, Rallis inner products and mass formulas as ingredients in this comparison.
+\src{\sTower; \sLink.}
+
+It is possible to see the main cancellation without computing these periods. Fix a translate $u$, write $A=\sum_{t\in T}a_t$, and abbreviate the weight $w_{u,j}(r)$ to $w_{jr}$. The source has a positive scale $v$, a real archimedean constant $g_0$, and $\log\Omega=\gamma+\log(\pi/v)-\re\ell_c$. Put
+\begin{align*}
+ P_{\rm div}&=m\sum_t(a_t\log a_t-a_t-a_t\log\Omega),\\
+ L_{\rm count}&=\sum_{j=1}^m\frac1f\sum_{r\in P}\log(w_{jr}v/\pi)+mg_0-E_{\rm count},\\
+ E_{\rm count}&=C_{\rm count}L_a(1+m^2/k).
+\end{align*}
+Here $L_a$ is the scale used in the counting error. $L_{\rm count}$ bounds the logarithm of the associated count from below. Substitution gives the exact identity
+\begin{equation}
+ P_{\rm div}-A L_{\rm count}+mAg_0
+   =\sum_{t,j}\re\mathcal M(a_t,w_{u,j})+A E_{\rm count}.\label{eq:keyid}
+\end{equation}
+Indeed $mg_0$ cancels, and the $mA\log(\pi/v)$ contributed by the sum of the logarithms cancels its counterpart in $-mA\log\Omega$. The remaining logarithms of the individual weights have precisely coefficient $-a_t/f$. This is how the same $\mathcal M$ appears on both sides of the Fourier calculation. Omitting the weight average would leave an error of main-term size.
+\src{\sMean; \sPoint.}
+
+For a closer view of the inequalities around \eqref{eq:keyid}, let $w$ now index the finite set $\mathcal W$ of alternatives at a fixed translate. Let $d_w>0$ be their weights and $h_w$ the heights of the maps. The arithmetic slope of a Hermitian lattice is its normalized Arakelov degree per rank; maximal and minimal slopes refer to its slope filtration, with the normalizations fixed in the source. Write
+\[
+ s=\frac{\sum_w d_w(\mu(N_w)-h_w)}{\sum_w d_w},\qquad
+ U=\max_w\{\mu_{\max}(N_w)-h_w\}-s\ge0.
+\]
+The slope comparison in the source, with distortion parameters $0\le d<1$, $e\in[0,1/4]$, $\eta\ge0$ and positive $H_*$ bounding the spread from below, reads
+\begin{equation}
+ s-\mu_{CC}\le\log|\mathcal W|+
+ \frac{4U\log(1+H_*/U)+(\eta+4\sqrt e)H_*}{1-d}.\label{eq:slope}
+\end{equation}
+At $U=0$ take the limiting value $0$ for the first term. The local divisibility estimate, the lower slope bound on the source lattices and the lower count estimate give in turn
+\[
+ \mathrm{gain}+\mu_{CC}-K_5-\overline{L}_{\rm loss}\le s.
+\]
+Here $\overline{L}_{\rm loss}$ is the weighted mean of the local comparison losses. Combining the two inequalities cancels $\mu_{CC}$. In $K_5$ the large terms are $P_{\rm div}-A L_{\rm count}+mAg_0$, exactly \eqref{eq:keyid}. A bound on $U$ follows by comparing each $\mu_{\max}(N_w)-h_w$ with each $\mu(N_{w'})-h_{w'}$, then averaging over $w'$ and maximizing over $w$. The input $H_*\le x^{c_H}b$ makes the logarithmic loss manageable. For example
+\[
+ U\log(1+H_*/U)\le(U+b)\log(1+x^{c_H}).
+\]
+For $U\ge b$ this is immediate; for $0<U<b$ use that $z\mapsto z\log(1+H_*/z)$ is increasing. The pointwise losses also cover the difference between the prime quantity $\mathcal A$ summed over stages and the gain from local divisibility. These are the pointwise comparisons needed for a bound at each translate in \eqref{eq:avup}.
+
+After the size estimates, the two remaining arithmetic budgets satisfy
+\[
+ B_0\le2nmbx^\epsilon,\qquad
+ N_c\le \frac{N_2 k b x^\epsilon}{n^2x^{-\epsilon}}.
+\]
+The first contribution to the bracket is $N_Ta_E(1+m^2/k)$; the others are $m(B_0+N_c)$. Substitution gives exactly \eqref{eq:bracket}. In particular the stage count multiplies the exceptional-place cost as well as the ordinary one. The proof of the uniform bounds producing these budgets, and of \eqref{eq:slope} for the actual lattices, is among the inputs to this reconstruction.
+\src{\sPoint; \sSChain; \sChTop.}
+
+
+\subsection{A local calculation with a determinant jet}
+The note's analogy with differentiating integers can be made quite concrete at a prime of good local structure. A jet is taken on a theta section in formal coordinates. If $P=\sum_\nu P_\nu X^\nu$ is a polynomial and $F$ a power series in characteristic zero, its jet at the origin is
+\[
+ P(\partial)F(0)=\sum_\nu P_\nu\,\nu!\,[X^\nu]F .
+\]
+In particular factorial valuations can be measured on the resulting number. Here is an exact calculation in the one-dimensional, unperturbed instance of the local Cartier estimate in the release. Let $p\ge5$ be a prime, $i=2h+1$ odd, and
+\[
+ e_i=1+p\sum_{j=0}^{h-1}p^{2j},\qquad
+ F(X,Y)=\exp(-p^{-e_i}X^{p^i}Y).
+\]
+The distinguished jet in degree $y$ is $J_y=\partial_X^{p^iy}\partial_Y^y F(0,0)$, the rank-one specialization of a product of powers of two determinant differential operators.
+\begin{lemma}
+For $y\ge0$, if $s_p(y)$ denotes the base-$p$ digit sum, then
+\[
+ v_p(J_y)=y\left((p^i+1)\frac{p}{p^2-1}-1\right)-\frac{s_p(y)}{p-1}.
+\]
+\end{lemma}
+\begin{proof}
+Only the $y$th exponential term can contribute. Its $y!$ denominator is canceled by $\partial_Y^y$, giving $J_y=(-p^{-e_i})^y(p^iy)!$. Counting multiples of $p,p^2,\ldots$ in a factorial gives $v_p(n!)=\sum_{a\ge1}\lfloor n/p^a\rfloor=(n-s_p(n))/(p-1)$. Multiplication by $p^i$ leaves the digit sum unchanged. Finally $e_i=1+(p^i-p)/(p^2-1)$, whence $p^i/(p-1)-e_i=(p^i+1)p/(p^2-1)-1$.
+\end{proof}
+In higher rank replace $X,Y$ by two $n_0\times n_0$ matrices of variables, and $X^{p^i}Y$ by $\sum_{a,b}X_{ab}^{p^i}Y_{ab}$. Apply $\det(\partial_X)^{p^iy}\det(\partial_Y)^y$ to the exponential with an allowed higher-order perturbation. Cancellations between monomials can raise the valuation. The local assertion in the release supplies, for every initial $Y_0$, an index
+\[
+ Y_0\le y<Y_0+C_0 n^2(i+\log(n+1)),\quad n\ge\max(1,n_0),
+\]
+where the valuation is at most
+$n_0y((p^i+1)p/(p^2-1)-1)+n(\log_p n+1)$ under its coefficient hypotheses. This particular bound is an \emph{upper} bound on the valuation, certifying a jet of sufficient size. Complementary integrality estimates bound valuations from below. The release also expresses the jet of a pulled-back, translated section of homogeneous multidegree $(d_\tau)$ as a root of unity times $\prod_\tau\tau(\pi_i)^{d_\tau}$ times an ordinary translated jet, in the chosen local coordinates. The root of unity is a unit, so these explicit factors survive in valuation comparisons. The rank-one calculation proves the leading coefficient in its model case; extending it to the allowed perturbations and identifying the jets of the automorphic sections are separate local theorems.
+\src{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/SharpRestriction/Divisibility/CartierLocalBounds.lean\#L80}{Cartier jet and its local bound}; \href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Formalism/SharpRestriction/Divisibility/CanonicalTranslateJets.lean\#L236}{translated theta jets}.}
+\subsection{The covolume estimate at one lift}
+The covolume estimate controls the cost of putting a common integral structure on periods. At stage $i$ denote by $\mu_{\rm core}$ the slope of the lattice of the specified type with its core norm; the norm on automorphic forms at the archimedean places is compared with the Petersson norm. The release distinguishes the core lattice from the full type lattice $L_{\rm typ}$ and its good part $L_{\rm good}$. Write $M_i$ for the predicted leading term at this stage and $E_0$ for the positive unit of error, with $b\le E_0$. Two intermediate estimates in its proof are
+\[
+ \mu_{\rm core}\ge -M_i-C_2E_0,\qquad
+ \mu(L_{\rm typ})\ge\mu_{\rm core}-C_1E_0.
+\]
+For the last stage the first bound uses the anchored terminal term. At earlier stages the proof passes to an auxiliary cover. For each relevant component $Z$ of that cover, the degree $d_Z$ of the selected weight and the component rank $r_Z$ satisfy
+\begin{equation}
+ (1-z)r_Z\le {L-1\choose D}d_Z\le r_Z,\qquad
+ d_*\le d_Z\le d_*/(1-\rho).\label{eq:share}
+\end{equation}
+Here $D$ is the dimension of the flag variety at that stage, $L$ the integer truncation length, $d_*>0$, and
+$z=7(D^2/L+D\rho)<1$, $0\le\rho<1$. The rank proportion in \eqref{eq:share} is the step which permits replacing a degree-weighted estimate by a rank-weighted one. Relative errors close to $1$ would make the replacement ineffective. The calculation in the release also bounds heights of the components from below on average and uses an arithmetic Hilbert--Samuel estimate to compare their heights with their Arakelov degrees. Summing those inequalities produces a uniform lower slope bound on the cover. Integral maps back into the original type lattice have controlled norms and ranks; together with the bound on generator norms this yields the stated lower bound for $\mu_{\rm core}$.
+
+For the truncation to $L_{\rm good}$ the projector is orthogonal at the infinite places and becomes integral after multiplication by a controlled group order. The complementary rank fraction is at most $3\exp(-x^{c})$, where $c>0$ is fixed for the family. A maximal slope is at most $x^A b$; the sizes of the main term and the unit of error are also polynomial multiples of $b$. 
+The dependence on the exceptional rank can be recovered by taking determinants. Let $P$ be the orthogonal idempotent on a lattice $L$, integral after multiplying by a positive integer $g$. Set $L_g=L\cap\operatorname{im}P$, $L_b=L\cap\ker P$, of ranks $r_g,r_b$. Projection along the good space identifies $L/(L_g+L_b)$ with a subquotient of $g^{-1}L_b/L_b$: indeed $(1-P)L\subset g^{-1}L_b$, and its inverse image of $L_b$ is $L_g+L_b$. Thus the logarithmic index, normalized by the degree of the coefficient field, is at most $r_b\log g$. Orthogonality gives an exact product of the archimedean covolumes on the direct sum. With the squared-norm degree convention the index cost is at most $2r_b\log g$. If $\mu_b\le M$ is the upper slope bound on the bad lattice (the zero-rank case contributes no term), the determinant comparison reads
+\[
+ (r_g+r_b)\mu(L)\le r_g\mu(L_g)+r_b(M+2\log g).
+\]
+If $r_b\le3\Delta(r_g+r_b)$ with $\Delta\le1/12$, then $r_b/r_g\le 3\Delta/(1-3\Delta)\le4\Delta$. For any common upper bound $Q_*$ on $M,2\log g,-\mu(L)$ this gives $\mu(L_g)\ge\mu(L)-12\Delta Q_*$. This proves the small-rank estimate used in the next calculation.
+\src{\href{https://github.com/TomasOrtega/RH/blob/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/MajAtAddRight.lean\#L111}{slope after orthogonal projection}.}
+
+The projection estimate therefore loses at most one further $E_0$ for all sufficiently large $x$. The precise absorption uses
+\[
+ 12e^{-x^c}\big(x^A+x^B+C_1+C_2+1\big)\le1,
+\]
+which follows on writing $y=x^c$ and observing $y^ae^{-y}\to0$ for each fixed $a$. The recursion compares the normalized log covolume with $-\mu(L_{\rm good})$. Combining the inequalities gives at every stage
+\[
+ \frac{\log\operatorname{covol}_i}{D_{\rm norm}}
+       \le M_i+(C_1+C_2+1)E_0
+\]
+with the covolume and degree normalization of the release. Each comparison supplies a threshold uniform in the stage index. Taking the maximum of those thresholds preserves that uniformity as the number of stages grows with $x$. Establishing the geometric inequalities that precede this absorption, in particular the cover heights and the distribution of ranks, is a substantive part of the arithmetic proof.
+\src{\sCovDef; \sCovAr; \sCovG; \sCovEnd.}
+
+\subsection{How the inputs meet}
+There is a quantifier issue in combining these estimates. One could prove each estimate for some family without ever obtaining a single family for which all of them hold. The formal assembly solves this by first combining statements uniform over suitably chosen auxiliary parameters, and only then selecting the family. In ordinary quantifiers the decisive step is
+\[
+ \big[\exists K\ \forall F\ (P(F,K)\Rightarrow B(F))\big]
+ \ \wedge\ \big[\forall K\ \exists F\ (P(F,K)\wedge W(F))\big]
+ \ \Longrightarrow\ \exists F\ (B(F)\wedge W(F)).
+\]
+Here $W(F)$ carries the full intervals and $B(F)$ the required simultaneous bounds. The permitted range of $\epsilon$ is the intersection of the ranges in the component statements. Constants fixing the exponent are chosen before $\epsilon$; constants affecting only the threshold for $x$ may be chosen afterwards.
+
+The following describes the actual assembly for a reader following the sources. The terminology in italics in the source links identifies the corresponding declarations.
+\begin{enumerate}[leftmargin=*,label=\arabic*.,itemsep=5pt]
+\item A local--global theorem attaches a continuous semisimple $\ell$-adic representation to a regular algebraic polarized cuspidal representation on $\mathrm{GL}_a$ over a CM field. Its specification includes compatibility away from $\ell$, local conditions above $\ell$, and the weights under embeddings. This precise package, \textit{Row0b}, is produced from a geometric realization and a stable-range theta-lift theorem. It supplies both a component of the literature inputs and an input to the cohomological window construction. The stable-range theorem here is distinct from the choice of chain length in \eqref{eq:sizes}.
+\item From the local--global package, base change and CM input the release obtains the Selmer window \eqref{eq:sha}. Auxiliary prime pairs and the admissible sets of translates produce the host data for a window of exponent $3/2$. The lower bound on the supply of such hosts is paired with requirements on the particular conductors and characters.
+\item On the automorphic side, separation by test functionals, equality of the two theta integrals, matching of their local factors and rationality of the resulting rows produce evaluation and interpolation maps on a common finite grid. Two lower thresholds for grid size occur; their maximum works for both estimates. The covolume bound is imposed on the same data. These steps give the definite-side hypotheses used in the family construction.
+\item At a chosen family, cohomological control and equality of the small-level ranks give \eqref{eq:eta}. The local divisibility comparison, the period identity and the rank and slope estimates give the simultaneous bounds on each translate. The construction of these compatible data is the theorem named \textit{shapeWin}. Its proof calls \textit{topDesWin} with the uniform divisibility and loss exponents fixed. The host supply, \textit{shapeWin} and the comparison \textit{level\_gm\_le\_on\_family\_scales} yield \eqref{eq:window} via \eqref{eq:net} and Proposition~\ref{pr:size}. Finally Theorem~\ref{th:landau} and reflection give Theorem~\ref{th:main}.
+\end{enumerate}
+\src{\sRow; \sRowSrc; \sVwin; \sThetaJoin; \sFinal; \sCompare.}
+
+\section{Sources and scope of verification}\label{sec:sources}
+The primary sources are Levent Alpöge's \href{https://alpo.ge/remark.pdf}{four-page announcement} and the fourteen-part Lean archive linked in its first footnote (\href{https://alpo.ge/lean.tar.gz.part01}{part 01} through \href{https://alpo.ge/lean.tar.gz.part14}{part 14}). The announcement presents a chronology. The finite-character balance, power windows, Selmer cutoff, and constants in the reduction above were read from the Lean files. The clickable source notes lead to the relevant declarations in a \href{https://github.com/TomasOrtega/RH/tree/a6ac91a412dcbaab31801355ec5707024a71bf65/extracted/lean}{commit-pinned source mirror}. All 175,190 regular files in the downloaded archive were compared byte for byte with their counterparts in that checkout. The source tree contains 175,187 Lean files and about 17.4 million lines. The release pins Lean 4.33.1 and Mathlib revision \texttt{0df444a360ea}.
+
+\noindent\textit{Status of this reconstruction.}
+The window-to-zero theorem, reflection, Fourier identity and scalar size computation are proved above. The article uses Alpöge's arithmetic construction by reference, most importantly for the simultaneous Selmer-length, integral theta-period and covolume estimates. The source links locate its claimed proofs. The existence of these compatible arithmetic data is the remaining unproved input in this exposition. I did not independently build the complete dependency tree or audit the axioms of its final RH declaration.
+% BUILDSTATUS
+\end{document}
