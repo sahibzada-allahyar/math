@@ -1,6 +1,14 @@
 # Mathematics
 
-Research papers and expository writing by Sahibzada Allahyar and collaborators, covering the Riemann hypothesis in analytic number theory and circuit lower bounds in computational complexity.
+Research papers and expository writing by Sahibzada Allahyar and collaborators, covering gaps between primes and the Riemann hypothesis in analytic number theory, and circuit lower bounds in computational complexity.
+
+## Infinitely many small prime gaps of 180 or less
+
+*Sahibzada Allahyar and Theodoros Yianni 路 22 November 2026 路 Zenodo v1 路 34 pages*
+
+The paper shows that infinitely many pairs of consecutive primes differ by at most 180, assuming a recently proposed estimate for exponential sums over finite fields. The previous bound under the same hypothesis was 182, and the best bound known without it is 186. The deduction is verified in the Lean 4 proof assistant from four explicitly stated exponential sum bounds and an explicit list of numerical inequalities.
+
+[Read the paper](preprint/prime-gaps-180/prime_gaps_at_most_180.pdf) 路 [Lean proof](preprint/prime-gaps-180/lean_proof.zip) 路 [Numerical checks](preprint/prime-gaps-180/numerical_checks.zip) 路 [Zenodo publication](https://doi.org/10.5281/zenodo.24430219) 路 [Cite the paper](#citing-the-prime-gaps-paper)
 
 ## From theta lifts to zeta zeros
 
@@ -27,6 +35,30 @@ The paper gives a lower bound of $(17/7-o(1))n$ gates for 3-SAT in the authors鈥
 Each archive includes source files, pinned dependencies, and build instructions.
 
 ## Citation
+
+### Citing the prime gaps paper
+
+Allahyar, S., & Yianni, T. (2026). *Infinitely many small prime gaps of 180 or less* (Version v1). Zenodo. [DOI 10.5281/zenodo.24430219](https://doi.org/10.5281/zenodo.24430219).
+
+<details>
+<summary>BibTeX</summary>
+
+```bibtex
+@misc{allahyar_yianni_2026_primegaps180,
+  author       = {Allahyar, Sahibzada and Yianni, Theodoros},
+  title        = {Infinitely many small prime gaps of 180 or less},
+  year         = {2026},
+  month        = nov,
+  howpublished = {Zenodo preprint},
+  version      = {v1},
+  doi          = {10.5281/zenodo.24430219},
+  url          = {https://doi.org/10.5281/zenodo.24430219}
+}
+```
+
+</details>
+
+The DOI above identifies the version containing the paper, the Lean proof and the numerical checks. The [all-versions DOI](https://doi.org/10.5281/zenodo.24430218) resolves to the latest published version.
 
 ### Citing this exposition
 
