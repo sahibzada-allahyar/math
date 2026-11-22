@@ -8,7 +8,15 @@ Research papers and expository writing by Sahibzada Allahyar and collaborators, 
 
 The paper shows that infinitely many pairs of consecutive primes differ by at most 180, assuming a recently proposed estimate for exponential sums over finite fields. The previous bound under the same hypothesis was 182, and the best bound known without it is 186. The deduction is verified in the Lean 4 proof assistant from four explicitly stated exponential sum bounds and an explicit list of numerical inequalities.
 
-[Read the paper](preprint/prime-gaps-180/prime_gaps_at_most_180.pdf) · [Lean proof](preprint/prime-gaps-180/lean_proof.zip) · [Numerical checks](preprint/prime-gaps-180/numerical_checks.zip) · [Zenodo publication](https://doi.org/10.5281/zenodo.24430219) · [Cite the paper](#citing-the-prime-gaps-paper)
+[Read the paper](preprint/prime-gaps-180/prime_gaps_at_most_180.pdf) · [Lean proof](lean/lean_proofs_prime_gaps_180.zip) · [Numerical checks](lean/numerical_checks_prime_gaps_180.zip) · [Zenodo publication](https://doi.org/10.5281/zenodo.24430219) · [Cite the paper](#citing-the-prime-gaps-paper)
+
+## A finite-exceptional Fourier bound for Kloosterman four-cycles
+
+*Sahibzada Allahyar · 22 November 2026 · Zenodo v1 · 27 pages*
+
+A complete proof, with every external input stated precisely and intended for expert verification, of a Fourier estimate for four-cycles of correlations of rank-three Kloosterman sums over finite fields. For distinct indices, the two-variable Fourier transform is O(p³) except at a bounded number of frequencies. This is the estimate assumed in the prime gaps paper above; the result and the strategy of proof are those of Proposition 3.1 of the companion article to the 182 bound.
+
+[Read the paper](preprint/kloosterman-fourier/finite_exceptional_fourier_bound.pdf) · [Zenodo publication](https://doi.org/10.5281/zenodo.24430590) · [Cite the paper](#citing-the-kloosterman-fourier-paper)
 
 ## From theta lifts to zeta zeros
 
@@ -59,6 +67,30 @@ Allahyar, S., & Yianni, T. (2026). *Infinitely many small prime gaps of 180 or l
 </details>
 
 The DOI above identifies the version containing the paper, the Lean proof and the numerical checks. The [all-versions DOI](https://doi.org/10.5281/zenodo.24430218) resolves to the latest published version.
+
+### Citing the Kloosterman Fourier paper
+
+Allahyar, S. (2026). *A finite-exceptional Fourier bound for four-cycles of rank-three Kloosterman correlations* (Version v1). Zenodo. [DOI 10.5281/zenodo.24430590](https://doi.org/10.5281/zenodo.24430590).
+
+<details>
+<summary>BibTeX</summary>
+
+```bibtex
+@misc{allahyar_2026_kloostermanfourier,
+  author       = {Allahyar, Sahibzada},
+  title        = {A finite-exceptional {Fourier} bound for four-cycles of rank-three {Kloosterman} correlations},
+  year         = {2026},
+  month        = nov,
+  howpublished = {Zenodo preprint},
+  version      = {v1},
+  doi          = {10.5281/zenodo.24430590},
+  url          = {https://doi.org/10.5281/zenodo.24430590}
+}
+```
+
+</details>
+
+The [all-versions DOI](https://doi.org/10.5281/zenodo.24430589) resolves to the latest published version.
 
 ### Citing this exposition
 
